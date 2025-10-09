@@ -56,7 +56,7 @@ if st.session_state.img_path:
 
     with col1:
         st.subheader("Uploaded Image")
-        st.image(st.session_state.img_path, use_column_width=True)
+        st.image(st.session_state.img_path, use_container_width=True)
 
         if st.button("Process Image", type="primary", use_container_width=True):
             with st.spinner('⚙️ Processing image... Please wait.'):
@@ -72,7 +72,7 @@ if st.session_state.img_path:
     with col2:
         st.subheader("Processed Image & Results")
         if st.session_state.processed_image is not None:
-            st.image(st.session_state.processed_image, use_column_width=True)
+            st.image(st.session_state.processed_image, use_container_width=True)
 
             if st.session_state.valid_detections:
                 st.success("✅ Validated License Plate(s) Found:")
