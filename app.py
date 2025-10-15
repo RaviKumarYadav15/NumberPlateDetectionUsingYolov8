@@ -6,23 +6,14 @@ import numpy as np
 
 # Import your custom functions from other files
 from vision import load_yolo_model, load_ocr_reader, process_image
+from utils import save_uploaded_file
 
-def save_uploaded_file(uploaded_file):
-    """Saves the uploaded file to a temporary directory and returns the path."""
-    try:
-        temp_dir = tempfile.mkdtemp()
-        path = os.path.join(temp_dir, uploaded_file.name)
-        with open(path, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        return path
-    except Exception as e:
-        st.error(f"Error saving file: {e}")
-        return None
-
+# ====================================================
 # --- Page Configuration and Model Loading ---
+# ====================================================
 st.set_page_config(page_title="License Plate Recognition", layout="wide")
 st.title("License Plate Detection & Recognition 🚗")
-st.info("Upload an image, then click 'Process Image' to detect license plates.")
+st.info("Upload an image or use webcam/video mode to detect license plates.")
 
 try:
     model = load_yolo_model()
@@ -31,7 +22,9 @@ except Exception as e:
     st.error(f"Error loading models: {e}")
     st.stop()
 
+# ====================================================
 # --- Session State Initialization ---
+# ====================================================
 if 'img_path' not in st.session_state:
     st.session_state.img_path = None
 if 'processed_image' not in st.session_state:
@@ -41,7 +34,9 @@ if 'valid_detections' not in st.session_state:
 if 'invalid_detections' not in st.session_state:
     st.session_state.invalid_detections = []
 
-# --- File Uploader ---
+# ====================================================
+# --- File Uploader (Image Mode) ---
+# ====================================================
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png", "webp"])
 
 if uploaded_file:
@@ -50,7 +45,6 @@ if uploaded_file:
     st.session_state.valid_detections = []
     st.session_state.invalid_detections = []
 
-# --- Main Application Logic ---
 if st.session_state.img_path:
     col1, col2 = st.columns(2)
 
@@ -89,3 +83,38 @@ if st.session_state.img_path:
                 st.info("No license plates were detected in the image.")
         else:
             st.info("Click 'Process Image' to see the results.")
+# ====================================================
+# --- Video / Webcam Support ---
+# ====================================================
+st.sidebar.header("🎥 Video / Webcam Settings")
+use_webcam = st.sidebar.checkbox("Enable Webcam / Video Mode")
+
+if use_webcam:
+    st.warning("Webcam detection is experimental; may be slower than image mode.")
+    run_webcam = st.checkbox("Start Webcam Detection")
+    if run_webcam:
+        frame_window = st.image([])  # Placeholder for frames
+        cap = cv2.VideoCapture(0)  # 0 = default webcam, replace with file path for video
+
+        # Optional: user-controlled frame resizing for speed
+        max_width = st.sidebar.slider("Max Frame Width", 320, 1280, 640, step=64)
+
+        while run_webcam:
+            ret, frame = cap.read()
+            if not ret:
+                st.error("Unable to read from webcam/video.")
+                break
+
+            # Resize frame for faster processing
+            height, width = frame.shape[:2]
+            if width > max_width:
+                scale = max_width / width
+                frame = cv2.resize(frame, (int(width*scale), int(height*scale)))
+
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            processed_frame, valid, invalid = process_image(frame_rgb, model, reader)
+            
+            # Display processed frame
+            frame_window.image(processed_frame, channels="RGB", use_container_width=True)
+
+        cap.release()
