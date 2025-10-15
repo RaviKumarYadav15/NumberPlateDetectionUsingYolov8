@@ -10,7 +10,7 @@ from utils import correct_plate_format, format_plate_text
 
 
 @st.cache_resource
-def load_yolo_model(model_path="best.pt"):
+def load_yolo_model(model_path="bestV11.pt"):
     """Loads the YOLOv8 model from the specified path."""
     return YOLO(model_path)
 
