@@ -150,7 +150,7 @@ Documentation: Help improve documentation and examples
 
 Development Setup
 # Fork and clone the repository
-git clone <your-fork-url>
+git clone https://github.com/RaviKumarYadav15/NumberPlateDetectionUsingYolov
 cd license-plate-recognition
 
 # Create feature branch
