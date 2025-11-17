@@ -4,11 +4,11 @@ import os
 import tempfile
 import numpy as np
 
-# Import your custom functions from other files
 from vision import load_yolo_model, load_ocr_reader, process_image
 
+
 def save_uploaded_file(uploaded_file):
-    """Saves the uploaded file to a temporary directory and returns the path."""
+    """Save uploaded file to temp directory and return path."""
     try:
         temp_dir = tempfile.mkdtemp()
         path = os.path.join(temp_dir, uploaded_file.name)
@@ -19,7 +19,8 @@ def save_uploaded_file(uploaded_file):
         st.error(f"Error saving file: {e}")
         return None
 
-# --- Page Configuration and Model Loading ---
+
+# Page setup
 st.set_page_config(page_title="License Plate Recognition", layout="wide")
 st.title("License Plate Detection & Recognition 🚗")
 st.info("Upload an image, then click 'Process Image' to detect license plates.")
@@ -31,7 +32,8 @@ except Exception as e:
     st.error(f"Error loading models: {e}")
     st.stop()
 
-# --- Session State Initialization ---
+
+# Session state
 if 'img_path' not in st.session_state:
     st.session_state.img_path = None
 if 'processed_image' not in st.session_state:
@@ -41,17 +43,18 @@ if 'valid_detections' not in st.session_state:
 if 'invalid_detections' not in st.session_state:
     st.session_state.invalid_detections = []
 
-# --- File Uploader ---
+
+# File uploader
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png", "webp"])
 
 if uploaded_file:
     st.session_state.img_path = save_uploaded_file(uploaded_file)
-    # Reset previous results when a new image is uploaded
     st.session_state.processed_image = None
     st.session_state.valid_detections = []
     st.session_state.invalid_detections = []
 
-# --- Main Application Logic ---
+
+# Main UI
 if st.session_state.img_path:
     col1, col2 = st.columns(2)
 
@@ -60,21 +63,22 @@ if st.session_state.img_path:
         st.image(st.session_state.img_path, use_column_width=True)
 
         if st.button("Process Image", type="primary", use_container_width=True):
-            with st.spinner('⚙️ Processing image... Please wait.'):
+            with st.spinner('Processing image...'):
                 image = cv2.imread(st.session_state.img_path)
 
                 if image is None:
-                    st.error("Could not read the uploaded image. It might be corrupted.")
+                    st.error("Could not read the uploaded image.")
                 else:
                     MAX_WIDTH = 1280
                     h, w, _ = image.shape
                     if w > MAX_WIDTH:
                         scale = MAX_WIDTH / w
-                        new_h = int(h * scale)
-                        image = cv2.resize(image, (MAX_WIDTH, new_h))
+                        image = cv2.resize(image, (MAX_WIDTH, int(h * scale)))
 
                     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                    processed_rgb, valid, invalid = process_image(image_rgb.copy(), model, reader)
+                    processed_rgb, valid, invalid = process_image(
+                        image_rgb.copy(), model, reader
+                    )
 
                     st.session_state.processed_image = processed_rgb
                     st.session_state.valid_detections = valid
@@ -82,23 +86,24 @@ if st.session_state.img_path:
 
     with col2:
         st.subheader("Processed Image & Results")
+
         if st.session_state.processed_image is not None:
             st.image(st.session_state.processed_image, use_column_width=True)
 
             if st.session_state.valid_detections:
-                st.success("✅ Validated License Plate(s) Found:")
+                st.success("Validated License Plate(s):")
                 for text, conf in st.session_state.valid_detections:
                     st.write(f"### **{text}** (Confidence: {conf:.0%})")
 
             if st.session_state.invalid_detections:
-                st.warning("⚠️ Unconfirmed Reading(s):")
-                st.write("The following were detected but could not be validated.")
+                st.warning("Unconfirmed Reading(s):")
                 for text, conf in st.session_state.invalid_detections:
                     st.write(f"- `{text}` (Confidence: {conf:.0%})")
 
-            if not st.session_state.valid_detections and not st.session_state.invalid_detections:
-                st.info("No license plates were detected in the image.")
+            if (
+                not st.session_state.valid_detections
+                and not st.session_state.invalid_detections
+            ):
+                st.info("No license plates detected.")
         else:
             st.info("Click 'Process Image' to see the results.")
-
-

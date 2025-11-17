@@ -37,4 +37,3 @@ def correct_plate_format(ocr_text):
             corrected_chars[i] = MAPPING_ALPHA_TO_NUM[char]
             
     return "".join(corrected_chars)
-# This file contains helper functions that don't directly involve machine learning models.
