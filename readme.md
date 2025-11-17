@@ -3,9 +3,6 @@
 A complete, production-ready **Automatic Number Plate Recognition (ANPR)** system that detects license plates using **YOLO** and reads them with **EasyOCR**.  
 Supports **images, videos, webcam**, and includes **OCR correction**, **confidence scoring**, **batch processing**, and a **Streamlit UI**.
 
-![MIT](https://img.shields.io/badge/License-MIT-blue.svg)
-![Python](https://img.shields.io/badge/Python-3.8%2B-brightgreen.svg)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-red.svg)
 
 ---
 
@@ -54,28 +51,23 @@ Add your Colab link here when available:
 
 license-plate-recognition/
 │
-├── app.py                # Streamlit UI for image & webcam-based ANPR
+├── app.py                # Streamlit UI for image & webcam ANPR detection
 ├── vision.py             # YOLOv11 detection + EasyOCR recognition pipeline
-├── utils.py              # Helper functions (cleaning, formatting, corrections)
-├── config.py             # Constants, regex patterns, and color configs
-├── batch_process.py      # Bulk processing for folders of images
+├── utils.py              # Helper functions (cleanup, normalization, correction)
+├── config.py             # Constants, regex patterns, colors
+├── batch_process.py      # Bulk folder-based processing
 │
-├── bestV11.pt            # Custom-trained YOLOv11 license plate model
-├── oldBest.pt            # Previous model version (for comparison/testing)
+├── bestV11.pt            # Custom-trained YOLOv11 model
+├── oldBest.pt            # Previous older model version
 │
 ├── requirements.txt      # Python dependencies
-├── README.md             # Documentation (this file)
+├── README.md             # Documentation
 │
-├── test_images/          # Sample images for testing & demos
-├── uploads/              # Temporary folder for Streamlit uploads
-├── output/               # Batch processing results (cropped plates, logs)
+├── test_images/          # Example test images
+├── uploads/              # Temporary uploaded files (Streamlit)
+├── output/               # Batch processing output & logs
 │
-└── venv/                 # Local Python virtual environment (ignored in Git)
-
-
-
-
-
+└── venv/                 # Virtual environment (ignored in Git)
 
 ---
 
