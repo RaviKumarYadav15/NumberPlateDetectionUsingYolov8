@@ -13,6 +13,8 @@ A comprehensive Automated Number Plate Recognition (ANPR) system that combines Y
 - **🎨 User-friendly Interface**: Clean, intuitive Streamlit web interface with real-time preview
 
 ## 🚀 Live Demo
+![WhatsApp Image 2025-11-17 at 19 13 17_2dce66c0](https://github.com/user-attachments/assets/ccbaf55d-c28d-4ddc-8502-019a54f571e1)
+
 
 Try the system online with Google Colab:
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1LQEOARGJrsXjzyxdBp48xbIu3DlUuR2S?usp=sharing)
@@ -33,7 +35,7 @@ Try the system online with Google Colab:
 
 1. **Clone the Repository**
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/RaviKumarYadav15/NumberPlateDetectionUsingYolov
    cd license-plate-recognition
 
 2. Create Virtual Environment (Recommended)
