@@ -2,11 +2,6 @@
 
 A comprehensive Automated Number Plate Recognition (ANPR) system that combines YOLOv11 for license plate detection and EasyOCR for text extraction. This system can process images, videos, and live webcam feeds to accurately detect and read license plates in real-time.
 
-![License Plate Recognition](https://img.shields.io/badge/License-MIT-blue.svg)
-![Python](https://img.shields.io/badge/Python-3.8%2B-brightgreen.svg)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-red.svg)
-![YOLO](https://img.shields.io/badge/YOLO-v11-orange.svg)
-
 ## 🌟 Features
 
 - **🎯 High Accuracy Detection**: Custom-trained YOLOv11 model for precise license plate detection
@@ -23,25 +18,7 @@ Try the system online with Google Colab:
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1LQEOARGJrsXjzyxdBp48xbIu3DlUuR2S?usp=sharing)
 
 ## 📁 Project Structure
-license-plate-recognition/
-│
-├── app.py # Streamlit UI for image & webcam ANPR detection
-├── vision.py # YOLOv11 detection + EasyOCR recognition pipeline
-├── utils.py # Helper functions (cleanup, normalization, correction)
-├── config.py # Constants, regex patterns, colors
-├── batch_process.py # Bulk folder-based processing
-│
-├── bestV11.pt # Custom-trained YOLOv11 model
-├── oldBest.pt # Previous older model version
-│
-├── requirements.txt # Python dependencies
-├── README.md # Documentation
-│
-├── test_images/ # Example test images
-├── uploads/ # Temporary uploaded files (Streamlit)
-├── output/ # Batch processing output & logs
-│
-└── venv/ # Virtual environment (ignored in Git)
+<img width="556" height="538" alt="image" src="https://github.com/user-attachments/assets/b32607af-b1a0-4e6c-b0fd-822005072b64" />
 
 
 ## 🛠️ Installation & Setup
