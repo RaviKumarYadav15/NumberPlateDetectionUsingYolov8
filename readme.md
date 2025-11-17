@@ -16,7 +16,7 @@ A comprehensive Automated Number Plate Recognition (ANPR) system that combines Y
 ![WhatsApp Image 2025-11-17 at 19 13 17_2dce66c0](https://github.com/user-attachments/assets/ccbaf55d-c28d-4ddc-8502-019a54f571e1)
 
 
-Try the system online with Google Colab:
+Train the system online with Google Colab:
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1LQEOARGJrsXjzyxdBp48xbIu3DlUuR2S?usp=sharing)
 
 ## 📁 Project Structure
