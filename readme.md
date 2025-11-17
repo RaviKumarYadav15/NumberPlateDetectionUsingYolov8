@@ -53,19 +53,24 @@ Add your Colab link here when available:
 ## 📁 Project Structure
 
 license-plate-recognition/
-├── app.py # Streamlit frontend
-├── vision.py # Detection + OCR logic
-├── utils.py # Helpers (OCR correction, cropping)
-├── config.py # Config & constants
-├── batch_process.py # Folder batch processing
-├── bestV11.pt # YOLO model (custom-trained)
-├── oldBest.pt # Previous version
-├── requirements.txt # Dependencies
-├── README.md # Project documentation
-├── test_images/ # Test input images
-├── uploads/ # Temporary runtime folder
-├── output/ # Results of batch processing
-└── venv/ # Local virtual environment
+│
+├── app.py                # Streamlit UI for image & webcam-based ANPR
+├── vision.py             # YOLOv11 detection + EasyOCR recognition pipeline
+├── utils.py              # Helper functions (cleaning, formatting, corrections)
+├── config.py             # Constants, regex patterns, and color configs
+├── batch_process.py      # Bulk processing for folders of images
+│
+├── bestV11.pt            # Custom-trained YOLOv11 license plate model
+├── oldBest.pt            # Previous model version (for comparison/testing)
+│
+├── requirements.txt      # Python dependencies
+├── README.md             # Documentation (this file)
+│
+├── test_images/          # Sample images for testing & demos
+├── uploads/              # Temporary folder for Streamlit uploads
+├── output/               # Batch processing results (cropped plates, logs)
+│
+└── venv/                 # Local Python virtual environment (ignored in Git)
 
 
 
